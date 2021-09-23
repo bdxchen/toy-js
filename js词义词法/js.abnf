@@ -1,0 +1,56 @@
+InputElement ::= WhiteSpace | LineTerminator | Comment | Token
+
+; 空格
+WhiteSpace ::= " " | "　"
+
+; 换行
+LineTerminator ::= "\n" | "\r"
+
+; 注释
+Comment ::= SingleLineComment | MultilineComment
+SingleLineComment ::= "/" "/" <any>*
+MultilineComment ::= "/" "*" ([^*] | "*" [^/])* "*" "/"
+
+; 产生式
+Token ::= Literal | Keywords | Identifier | Punctuator
+; 直接量/自变量
+Literal ::= NumberLiteral | BooleanLiteral | StringLiteral | NullLiteral
+; 关键字
+Keywords ::= "if" | "else" | "for" | "function" | "......"
+; 标识符
+Identifier 
+; 标点
+Punctuator ::= "+" | "-" | "*" | "/" | "{" | "}" | "......"
+
+
+Program ::= Statement+
+
+Statement ::= ExpressionStatement | IfStatement
+  | ForStatement | WhileStatement
+  | VariableDeclaration | FuncitonDeclaration | ClassDeclaration
+  | BreakStatement | ContinueStatement | ReturnStatement | ThrowStatement
+  | TryStatement | Block
+
+ExpressionStatement ::= Expression ";" 
+
+Expression ::= AdditiveExpression
+
+AdditiveExpression ::= MultiplicativeExpression
+  | AdditiveExpression ("+" | "-") MultiplicativeExpression
+
+MultiplicativeExpression ::= UnaryExpression
+  | MultiplicativeExpression ("*" | "/") UnaryExpression
+
+UnaryExpression ::= PrimaryExpression
+  | ("+" | "-" | "typeof") PrimaryExpression
+
+PrimaryExpression ::= "(" Expression ")" | Literal | Identifier
+
+; if(aaa) return
+IfStatement ::= "if" "(" Expression ")" Statement
+
+; {}
+Block = "{" Statement "}"
+
+; try{} catch{}
+TryStatement ::= "try" "{" Statement+ "}" "catch" "(" Expression ")" "{" Statement+ "}"

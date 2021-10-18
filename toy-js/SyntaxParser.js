@@ -219,10 +219,10 @@ export function parse (source) {
   }
   for (let symbol/*terminal symbols*/ of scan(source)) {
     shift(symbol)
-    console.log(symbol)
   }
 
   return reduce()
 }
 
-parse(source)
+
+console.log(parse(source))

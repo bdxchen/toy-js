@@ -72,7 +72,6 @@ export function* scan (str) {
   
   while (regexp.lastIndex < str.length) {
     let r = regexp.exec(str)
-    // console.log(r)
 
     if (r.Whitespace) {
 
@@ -102,16 +101,16 @@ export function* scan (str) {
       }
     } else if (r.Identifer) {
       yield {
-        type: 'Identifer',
+        type: 'Identifier',
         value: r[0]
       }
     } else if (r.Keywords) {
       yield {
-        value: r[0]
+        type: r[0]
       }
     } else if (r.Punctuator) {
       yield {
-        value: r[0]
+        type: r[0]
       }
     } else {
       throw new Error('unexpected token' + r[0])
@@ -138,6 +137,7 @@ export function* scan (str) {
 //     board.appendChild(document.createElement('br'))
 //   }
 // `)
+
 
 // for (let element of scan(source)) {
 //   console.log(element)

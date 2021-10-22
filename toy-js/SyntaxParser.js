@@ -176,17 +176,16 @@ let end = {
 let start = {
   'Program': end
 }
+
 closure(start)
 
-let source = `
-  let a;
-`
 export function parse (source) {
   let stack = [start]
   let symbolStack = []
 
   function reduce () {
     let state = stack[stack.length - 1]
+    
     if (state.$reduceType) {
       let children = []
       for (let i = 0; i < state.$reduceLength; i++) {
@@ -206,7 +205,8 @@ export function parse (source) {
   }
   function shift (symbol) {
     let state = stack[stack.length - 1]
-
+    console.log(symbol)
+    console.log(state)
     if (symbol.type in state) {
       stack.push(state[symbol.type])
       symbolStack.push(symbol)
@@ -224,5 +224,3 @@ export function parse (source) {
   return reduce()
 }
 
-
-console.log(parse(source))

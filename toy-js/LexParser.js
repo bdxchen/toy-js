@@ -72,7 +72,6 @@ export function* scan (str) {
   
   while (regexp.lastIndex < str.length) {
     let r = regexp.exec(str)
-
     if (r.Whitespace) {
 
     } else if (r.LineTerminator) {
@@ -102,7 +101,7 @@ export function* scan (str) {
     } else if (r.Identifer) {
       yield {
         type: 'Identifier',
-        value: r[0]
+        name: r[0]
       }
     } else if (r.Keywords) {
       yield {
